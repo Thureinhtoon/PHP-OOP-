@@ -1,0 +1,27 @@
+<button id="fetch">Fetch</button>
+<div id="data"></div>
+
+<script>
+    var fetch = document.querySelector('#fetch');
+    var data = document.querySelector('#data');
+
+    fetch.addEventListener('click',function(){
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function(){
+            if(req.readyState ==4 && req.status == 200){
+                var reqData = JSON.parse(req.responseText);
+
+                var str='';
+                str += "<ul>";
+                reqData.forEach(d=>{
+                    str += `<li>${d.name} ${d.age}</li>`;
+                });
+                str += "</ul>";
+                data.innerHTML = str;
+
+            }
+        }
+        req.open('GET','index.php');
+        req.send();
+    })
+</script>
